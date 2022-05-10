@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col" style="padding: 10px;">
+            <form class="text-center border border-light p-5" [formGroup]="form" (submit)="send()" style="background-color: #e9ecef;" errorTailor>
+                <p class="h4 mb-4" *ngIf="form.value.typeForm == 'create'">Crea tu personaje</p>
+                <p class="h4 mb-4" *ngIf="form.value.typeForm == 'update'">Actualiza tu personaje</p>
+                
+                <input required (keypress)="blank($event)" type="text" id="name" formControlName="name" class="form-control mb-4" placeholder="Hero name">
+
+                <ng-container *ngTemplateOutlet="messageError;context:{error: form.get('name')?.errors}"></ng-container>
+                
+                <input required (keypress)="blank($event)" type="text" id="super_power" formControlName="super_power" class="form-control mb-4" placeholder="Super pawa!">
+
+                <ng-container *ngTemplateOutlet="messageError;context:{error: form.get('super_power')?.errors}"></ng-container>
+                
+                <button *ngIf="form.value.typeForm == 'create'" type="submit" class="btn btn-dark" [disabled]="form.invalid">Send</button>
+               
+                <button *ngIf="form.value.typeForm == 'update'" type="submit" class="btn btn-dark" [disabled]="form.invalid" style="margin-right: 20px;">Update</button>
+                
+                <button *ngIf="form.value.typeForm == 'update'" type="button" class="btn btn-dark" (click)="clearForm()">Create new</button>
+                
+            </form>
+        </div>
+    </div>
+    <ng-template #messageError let-error="error">
+        <div *ngIf="error?.pattern?.requiredPattern">
+            No se admiten números, especiales o espacios
+        </div>
+    </ng-template>
+    <hr>
+    <div class="row justify-content-md-center">
+        <div class="col" style="padding: 10px;">
+            <table class="table" id="table-heros">
+                <thead class="thead-light">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Avatar</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Super Pawa</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let hero of heroes; index as i">
+                    <th scope="row">{{i+1}}</th>
+                    <td>
+                        <img src="https://avatars.dicebear.com/api/bottts/{{hero.name}}.svg" alt="{{hero.name}}">
+                    </td>
+                    <td>{{hero.name}}</td>
+                    <td>{{hero.super_power}}</td>
+                    <td>
+                        <button type="button" class="btn btn-secondary btn-sm" (click)="edit(i)" >Edit</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-secondary btn-sm" (click)="destroy(i)">Delete</button>
+                    </td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

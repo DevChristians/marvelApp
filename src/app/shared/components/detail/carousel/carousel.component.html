@@ -1,0 +1,11 @@
+<div class="row">
+    <h2>{{title}}</h2>
+    <carousel style="z-index: 0 !important;">
+        <div class="carousel-cell" *ngFor="let item of list">
+            <!-- <a> -->
+                <img src="{{item.path}}.{{item.extension}}"/>
+            <!-- </a> -->
+        </div>
+    </carousel>
+</div>
+<hr>

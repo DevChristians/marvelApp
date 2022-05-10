@@ -1,7 +1,7 @@
-<div fxFlex fxLayout="column">
-    <div fxLayout="row wrap">
-        <div fxFlex="25" fxFlex.md="33" fxFlex.sm="50" fxFlex.xs="100" fxLayout="column" *ngFor="let character of allCharacters | async" style="padding: 5px;">
-            <app-character [character]="character"></app-character>
+<div class="container-fluid">
+    <div class="row d-flex align-content-stretch flex-wrap">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" *ngFor="let character of allCharacters | async" style="padding: 5px;">
+            <app-hero-card [item]="character" [type]="'characters'"></app-hero-card>
         </div>
     </div>
 </div>

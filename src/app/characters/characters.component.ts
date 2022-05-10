@@ -1,6 +1,7 @@
+import { MarvelApiService } from '../shared/services/marvel-api.service';
 import { Component, OnInit } from '@angular/core';
-import { CharactersApiService } from './character/shared/characters-api.service';
 import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-characters',
@@ -9,15 +10,25 @@ import { Observable } from 'rxjs';
 })
 export class CharactersComponent implements OnInit {
 
-  constructor(private characterSvc: CharactersApiService) { }
+  title = 'Characters';
+
+  constructor(
+    private characterService: MarvelApiService,
+    private route: ActivatedRoute
+  ) { }
+  
   allCharacters: Observable<any> | undefined;
 
   ngOnInit(): void {
-    this.getCharacters();
+    this.route.url.subscribe( type => {
+      this.getAllCharacters(type);
+    });
+    
   }
 
-  getCharacters(){
-    this.allCharacters = this.characterSvc.getAllCharacters();
+  getAllCharacters(type: any){
+    this.allCharacters = this.characterService.getAll(type);
   }
+  
 
 }

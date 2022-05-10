@@ -1,0 +1,70 @@
+<div class="container-fluid">
+    <div class="row mt-3">
+        <div class="col-lg-1 col-md-12 col-sm-12 col-xs-12">
+            <button type="button" class="btn" (click)="backClicked()">Back</button>
+        </div>
+        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+            <app-card [item]="item"></app-card>
+        </div>
+        <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12" [ngSwitch]="type">
+            <ng-container *ngIf="characters.length > 0">
+                <app-carousel 
+                    *ngSwitchCase="type === 'comics' || type === 'series' ? type : ''" 
+                    [list]="characters" 
+                    [title]="'Characters'">
+                </app-carousel>
+            </ng-container>
+            <ng-container *ngIf="creators.length > 0">
+                <app-carousel 
+                    *ngSwitchCase="type === 'comics' || type === 'series' ? type : ''" 
+                    [list]="creators" 
+                    [title]="'Creators'">
+                </app-carousel>
+            </ng-container>
+            <ng-container *ngIf="series.length > 0">
+                <app-carousel 
+                    *ngSwitchCase="'characters'" 
+                    [list]="series" 
+                    [title]="'Series'">
+                </app-carousel>
+            </ng-container>
+            <ng-container *ngIf="comics.length > 0">
+                <app-carousel 
+                    *ngSwitchCase="type === 'characters' || type === 'series' ? type : ''" 
+                    [list]="comics" 
+                    [title]="'Comics'">
+                </app-carousel>
+            </ng-container>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#storiesModal" [disabled]="stories.length == 0">
+                See Stories
+            </button>
+            
+            <div class="modal fade" id="storiesModal" tabindex="-1" role="dialog" aria-labelledby="storiesModalTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h2 class="modal-title" id="storiesModalTitle">Stories ({{stories.length}})</h2>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="list-group" *ngFor="let storie of stories">
+                            <li class="list-group-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                                    <path fill-rule="evenodd" d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75V1.75zm8.755 3a2.25 2.25 0 012.25-2.25H14.5v9h-3.757c-.71 0-1.4.201-1.992.572l.004-7.322zm-1.504 7.324l.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574z">
+                                    </path>
+                                </svg> 
+                                {{storie.title}}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
